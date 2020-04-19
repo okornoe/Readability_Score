@@ -6,23 +6,19 @@ import java.util.Scanner;
 
 public class Main {
     static String ageRange;
+    static final float constVal4_71 = 4.71f;
+    static final float constVal0_5 = 0.5f;
+    static final float constVal321_43 = 21.43f;
+
+    static int numOfSentence = 0;
+    static int numOfWords = 0;
+    static int numOfCharacters = 0;
+    static int roundedIntScore;
+
 
     public static void main(String[] args) throws IOException {
         // use args[0] to store the file name and append it to the path
         //String path = args[0];
-
-        int numOfSentence = 0;
-        int numOfWords = 0;
-        int numOfCharacters = 0;
-        int roundedIntScore;
-        float numCharDivideNumWords;
-        float numWordsDivideNumSentence;
-        double score;
-
-
-        final float constVal4_71 = 4.71f;
-        final float constVal0_5 = 0.5f;
-        final float constVal321_43 = 21.43f;
 
         String path = "/moocs/jetbrains/Readability Score/in.txt";
         File file = new File(path);
@@ -41,21 +37,26 @@ public class Main {
             }
         }
 
-        //calculates the score of the text.
-        numCharDivideNumWords = (float) numOfCharacters / numOfWords;
-        numWordsDivideNumSentence = (float) numOfWords / numOfSentence;
-        score = (constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
-
-        roundedIntScore = (int) Math.ceil(score);
+        roundedIntScore = (int) Math.ceil(calculateReadableScore());
         readableAge(roundedIntScore);
 
         System.out.println("Words: " + numOfWords);
         System.out.println("Sentences: " + numOfSentence);
         System.out.println("Characters: " + numOfCharacters);
         System.out.print("The score is: ");
-        System.out.format("%.2f", score);
+        System.out.format("%.2f", calculateReadableScore());
         System.out.println();
         System.out.println("This text should be understood by " + ageRange + " year olds.");
+    }
+
+    private static float calculateReadableScore() {
+        //calculates the score of the text.
+        float numCharDivideNumWords;
+        float numWordsDivideNumSentence;
+        numCharDivideNumWords = (float) numOfCharacters / numOfWords;
+        numWordsDivideNumSentence = (float) numOfWords / numOfSentence;
+        return (constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
+
     }
 
     //This method determines which age range will be able to read the text.

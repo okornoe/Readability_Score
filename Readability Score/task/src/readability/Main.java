@@ -6,12 +6,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         // use args[0] to store the file name and append it to the path
-        //String argsParam = args[0];
-        String path = "/moocs/jetbrains/Readability Score/in.txt";
+        //String path = args[0];
+        String path = "/moocs/jetbrains/Readability Score/in2.txt";
         String sentence;
         int sentenceCount = 0;
         int wordCount = 0;
         int charCount = 0;
+        String ageRange = "";
         final float constVal4_71 = 4.71f;
         final float constVal0_5 = 0.5f;
         final float constVal321_43 = 21.43f;
@@ -47,54 +48,52 @@ public class Main {
 
         switch (switchScore) {
             case 1:
-                System.out.print("This text should be understood by 5-6 year olds.");
+                 ageRange = "5-6";
                 break;
             case 2:
-                System.out.print("This text should be understood by 6-7 year olds.");
+                 ageRange =  "6-7";
                 break;
             case 3:
-                System.out.print("This text should be understood by 7-9 year olds.");
+                ageRange = "7-9";
                 break;
             case 4:
-                System.out.print("This text should be understood by 9-10 year olds.");
+                ageRange = "9-10";
                 break;
             case 5:
-                System.out.print("This text should be understood by 10-11 year olds.");
+                ageRange = "10-11";
                 break;
             case 6:
-                System.out.print("This text should be understood by 11-12 year olds.");
+                ageRange = "11-12";
                 break;
             case 7:
-                System.out.print("This text should be understood by 12-13 year olds.");
+                ageRange = "12-13";
                 break;
             case 8:
-                System.out.print("This text should be understood by 13-14 year olds.");
+                ageRange = "13-14";
                 break;
             case 9:
-                System.out.print("This text should be understood by 14-15 year olds.");
+                ageRange = "14-15";
                 break;
             case 10:
-                System.out.print("This text should be understood by 15-16 year olds.");
+                ageRange = "15-16";
                 break;
             case 11:
-                System.out.print("This text should be understood by 16-17 year olds.");
+                ageRange = "16-17";
                 break;
             case 12:
-                System.out.print("This text should be understood by 17-18 year olds.");
+                ageRange = "17-18";
                 break;
             case 13:
-                System.out.print("This text should be understood by 18-24 year olds.");
+                ageRange = "18-24";
                 break;
             case 14:
-                System.out.print("This text should be understood by 24+ year olds.");
+                ageRange = "24+";
                 break;
             default:
-                System.out.print("Unknown");
+                 ageRange = "Unknown";
                 break;
         }
-
-
-
+        System.out.println("This text should be understood by " + ageRange + " year olds.");
     }
 }
 

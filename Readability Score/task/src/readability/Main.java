@@ -11,13 +11,11 @@ public class Main {
     static int numOfCharacters = 0;
 
     public static void main(String[] args) throws IOException {
-        // use args[0] to store the file name and append it to the path
-        //String path = args[0];
-
-        String path = "/moocs/jetbrains/Readability Score/in.txt";
+        // use args[0] to read in the file name
+        //String path = "/moocs/jetbrains/Readability Score/in.txt"; for ide testing
+        String path = args[0];
         File file = new File(path);
         Scanner scanner = new Scanner(file);
-        //System.out.println(file.exists());
 
         while (scanner.hasNextLine()) {
             String readLine = scanner.nextLine();
@@ -40,8 +38,8 @@ public class Main {
         System.out.println("This text should be understood by " + readableAge((int) Math.ceil(calculateReadableScore())) + " year olds.");
     }
 
+    //calculates the score of the text.
     private static float calculateReadableScore() {
-        //calculates the score of the text.
         final float constVal4_71 = 4.71f;
         final float constVal0_5 = 0.5f;
         final float constVal321_43 = 21.43f;

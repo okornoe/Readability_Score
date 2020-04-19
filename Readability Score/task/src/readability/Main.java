@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    static String ageRange;
+
     static final float constVal4_71 = 4.71f;
     static final float constVal0_5 = 0.5f;
     static final float constVal321_43 = 21.43f;
@@ -38,7 +38,7 @@ public class Main {
         }
 
         roundedIntScore = (int) Math.ceil(calculateReadableScore());
-        readableAge(roundedIntScore);
+
 
         System.out.println("Words: " + numOfWords);
         System.out.println("Sentences: " + numOfSentence);
@@ -46,7 +46,7 @@ public class Main {
         System.out.print("The score is: ");
         System.out.format("%.2f", calculateReadableScore());
         System.out.println();
-        System.out.println("This text should be understood by " + ageRange + " year olds.");
+        System.out.println("This text should be understood by " + readableAge(roundedIntScore) + " year olds.");
     }
 
     private static float calculateReadableScore() {
@@ -60,53 +60,54 @@ public class Main {
     }
 
     //This method determines which age range will be able to read the text.
-    private static void readableAge(int score) {
+    private static String readableAge(int score) {
+        //String ageRange;
         switch (score) {
             case 1:
-                ageRange = "5-6";
-                break;
+                return  "5-6";
+                //break;
             case 2:
-                ageRange = "6-7";
-                break;
+                return "6-7";
+                //break;
             case 3:
-                ageRange = "7-9";
-                break;
+                return "7-9";
+                //break;
             case 4:
-                ageRange = "9-10";
-                break;
+                return  "9-10";
+                //break;
             case 5:
-                ageRange = "10-11";
-                break;
+                return "10-11";
+                //break;
             case 6:
-                ageRange = "11-12";
-                break;
+                return "11-12";
+                //break;
             case 7:
-                ageRange = "12-13";
-                break;
+                return "12-13";
+                //break;
             case 8:
-                ageRange = "13-14";
-                break;
+                return "13-14";
+                //break;
             case 9:
-                ageRange = "14-15";
-                break;
+                return  "14-15";
+                //break;
             case 10:
-                ageRange = "15-16";
-                break;
+                return  "15-16";
+                //break;
             case 11:
-                ageRange = "16-17";
-                break;
+                return  "16-17";
+                //break;
             case 12:
-                ageRange = "17-18";
-                break;
+                return  "17-18";
+                //break;
             case 13:
-                ageRange = "18-24";
-                break;
+                return  "18-24";
+                //break;
             case 14:
-                ageRange = "24+";
-                break;
+                return  "24+";
+                //break;
             default:
-                ageRange = "Unknown";
-                break;
+                return  "Unknown";
+                //break;
         }
     }
 }

@@ -23,31 +23,6 @@ public class Main {
             sentence = scanner.nextLine();
             String[] strArr = sentence.split("[!?.]");
             sentenceCount = sentenceCount + strArr.length;
-            //sentenceCount++;
-
-            //debugging
-            /*BufferedWriter fileWriter = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug.txt"));
-            for (String s : strArr) {
-                fileWriter.write(s);
-                fileWriter.newLine();
-            }
-            fileWriter.close();*/
-/*
-            for (String s : strArr) {
-                String[] strwords = s.trim().split("\\s");
-                wordCount = wordCount + strwords.length;
-
-                //String[] charSplit = strArr.split("\\s+");
-                for (int i = 0; i<wordCount; i++) {
-                    charCount = charCount + strwords[i].length();
-                }
-            }*/
-            //String[] strwords = strArr.split("\\s");
-            /*for (int i = 0; i <strArr.length; i++) {
-                String[] strwords = strArr[i].trim().split("\\s+");
-                wordCount = wordCount + strwords.length;
-                //charCount = charCount + strwords[i].toCharArray().length;
-            }*/
 
             String[] ser = sentence.split("\\s+");
             wordCount = wordCount + ser.length;
@@ -61,32 +36,65 @@ public class Main {
 
         double score = (constVal4_71 * charDivWords) + ((constVal0_5 * wordsDivSentences) - constVal321_43);
 
-        System.out.println("sentence: " + sentenceCount);
-        System.out.println("words: " + wordCount);
-        System.out.println("character: " + charCount);
-        System.out.print("Score: ");
-        System.out.printf("%.2f",score);
 
+        System.out.println("Words: " + wordCount);
+        System.out.println("Sentences: " + sentenceCount);
+        System.out.println("Characters: " + charCount);
+        System.out.print("The score is: ");
+        System.out.format("%.2f",score);
+       System.out.println();
+        int switchScore = (int)Math.ceil(score);
 
-
-/*      Scanner scanner = new Scanner(System.in);
-        String sentence = scanner.nextLine();
-        int countWord = 0;
-
-        String[] strArr = sentence.split("[!?.]");
-        int sentenceLen = strArr.length;
-
-        for (String s: strArr) {
-          // String[] st = s.split("\\u00a0");
-            String[] st = s.split("\\s");
-           countWord += st.length;
+        switch (switchScore) {
+            case 1:
+                System.out.print("This text should be understood by 5-6 year olds.");
+                break;
+            case 2:
+                System.out.print("This text should be understood by 6-7 year olds.");
+                break;
+            case 3:
+                System.out.print("This text should be understood by 7-9 year olds.");
+                break;
+            case 4:
+                System.out.print("This text should be understood by 9-10 year olds.");
+                break;
+            case 5:
+                System.out.print("This text should be understood by 10-11 year olds.");
+                break;
+            case 6:
+                System.out.print("This text should be understood by 11-12 year olds.");
+                break;
+            case 7:
+                System.out.print("This text should be understood by 12-13 year olds.");
+                break;
+            case 8:
+                System.out.print("This text should be understood by 13-14 year olds.");
+                break;
+            case 9:
+                System.out.print("This text should be understood by 14-15 year olds.");
+                break;
+            case 10:
+                System.out.print("This text should be understood by 15-16 year olds.");
+                break;
+            case 11:
+                System.out.print("This text should be understood by 16-17 year olds.");
+                break;
+            case 12:
+                System.out.print("This text should be understood by 17-18 year olds.");
+                break;
+            case 13:
+                System.out.print("This text should be understood by 18-24 year olds.");
+                break;
+            case 14:
+                System.out.print("This text should be understood by 24+ year olds.");
+                break;
+            default:
+                System.out.print("Unknown");
+                break;
         }
 
-       if(countWord/sentenceLen<=10) {
-           System.out.println("EASY");
-       } else {
-           System.out.println("HARD");
-       }*/
+
+
     }
 }
 

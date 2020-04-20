@@ -16,38 +16,46 @@ public class Main {
 
         // use args[0] to read in the file name
         //for ide testing
-        String path = "/moocs/jetbrains/Readability Score/in2.txt";
-        String string = new String(Files.readAllBytes(Paths.get(path)));
 
-        String[] sentence = string.replaceAll("\\s+","").split("[!?.]");
-            numOfSentence =  sentence.length;
-            String[] words = string.split("\\s+");
-            numOfWords = numOfWords + words.length;
-
-            for (String word : words) {
-                numOfCharacters = numOfCharacters + word.length();
-            }
-
-        System.out.println("Words: " + numOfWords);
-        System.out.println("Sentences: " + numOfSentence);
-        System.out.println("Characters: " + numOfCharacters);
+        System.out.println("Words: " + numberOfWords());
+        System.out.println("Sentences: " + numberOfSentences());
+        System.out.println("Characters: " + numberOfCharacters());
         System.out.print("The score is: ");
         System.out.format("%.2f", calculateReadableScore());
         System.out.println();
         System.out.println("This text should be understood by " + readableAge((int) Math.ceil(calculateReadableScore())) + " year olds.");
     }
 
+    private static String readFile() throws IOException {
+        String path = "/moocs/jetbrains/Readability Score/in2.txt";
+        return new String(Files.readAllBytes(Paths.get(path)));
+    }
+
+    private static int numberOfSentences() throws IOException {
+        String[] s = readFile().replaceAll("\\s+","").split("[!?.]");
+        return s.length;
+    }
+
+    private static int numberOfWords() throws IOException {
+        String[] words = readFile().split("\\s+");
+        return words.length;
+    }
+
+    private static int numberOfCharacters() throws IOException {
+        String words = readFile().replaceAll("\\s+", "");
+        return words.toCharArray().length;
+    }
+
     //calculates the score of the text.
-    private static float calculateReadableScore() {
+    private static float calculateReadableScore() throws IOException {
         final float constVal4_71 = 4.71f;
         final float constVal0_5 = 0.5f;
         final float constVal321_43 = 21.43f;
         float numCharDivideNumWords;
         float numWordsDivideNumSentence;
-        numCharDivideNumWords = (float) numOfCharacters / numOfWords;
-        numWordsDivideNumSentence = (float) numOfWords / numOfSentence;
+        numCharDivideNumWords = (float) numberOfCharacters() / numberOfWords();
+        numWordsDivideNumSentence = (float) numberOfWords() / numberOfSentences();
         return (constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
-
     }
 
     //This method determines which age range will be able to read the text.

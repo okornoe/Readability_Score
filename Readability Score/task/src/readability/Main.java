@@ -1,8 +1,10 @@
 package readability;
 
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+//import java.util.Scanner;
 
 public class Main {
 
@@ -11,23 +13,20 @@ public class Main {
     static int numOfCharacters = 0;
 
     public static void main(String[] args) throws IOException {
+
         // use args[0] to read in the file name
-        //String path = "/moocs/jetbrains/Readability Score/in.txt"; for ide testing
-        String path = args[0];
-        File file = new File(path);
-        Scanner scanner = new Scanner(file);
+        //for ide testing
+        String path = "/moocs/jetbrains/Readability Score/in2.txt";
+        String string = new String(Files.readAllBytes(Paths.get(path)));
 
-        while (scanner.hasNextLine()) {
-            String readLine = scanner.nextLine();
-            String[] sentence = readLine.split("[!?.]");
-            numOfSentence = numOfSentence + sentence.length;
-
-            String[] words = readLine.split("\\s+");
+        String[] sentence = string.replaceAll("\\s+","").split("[!?.]");
+            numOfSentence =  sentence.length;
+            String[] words = string.split("\\s+");
             numOfWords = numOfWords + words.length;
+
             for (String word : words) {
                 numOfCharacters = numOfCharacters + word.length();
             }
-        }
 
         System.out.println("Words: " + numOfWords);
         System.out.println("Sentences: " + numOfSentence);
@@ -55,13 +54,13 @@ public class Main {
     private static String readableAge(int score) {
         switch (score) {
             case 1:
-                return  "5-6";
+                return "5-6";
             case 2:
                 return "6-7";
             case 3:
                 return "7-9";
             case 4:
-                return  "9-10";
+                return "9-10";
             case 5:
                 return "10-11";
             case 6:
@@ -71,19 +70,19 @@ public class Main {
             case 8:
                 return "13-14";
             case 9:
-                return  "14-15";
+                return "14-15";
             case 10:
-                return  "15-16";
+                return "15-16";
             case 11:
-                return  "16-17";
+                return "16-17";
             case 12:
-                return  "17-18";
+                return "17-18";
             case 13:
-                return  "18-24";
+                return "18-24";
             case 14:
-                return  "24+";
+                return "24+";
             default:
-                return  "Unknown";
+                return "Unknown";
         }
     }
 }

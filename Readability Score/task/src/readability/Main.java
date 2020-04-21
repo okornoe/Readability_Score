@@ -7,10 +7,8 @@ import java.nio.file.Paths;
 
 public class Main {
     static String str = "";
-    static String path = "/moocs/jetbrains/Readability Score/test1.txt";
     public static void main(String[] args) throws IOException {
-        //str = readFile(args[0]); // read file name from console;
-        str = readFile(path); // read file from a directory.
+        str = readFile(args[0]);
         printAll();
     }
 
@@ -24,14 +22,30 @@ public class Main {
         System.out.println("This text should be understood by " + readableAge((int) Math.ceil(calculateReadableScore())) + " year olds.");
     }
 
+    //calculates number of syllables in a file
+
+    /**
+     * 1. Count the number of vowels in the word.
+     * 2. Do not count double-vowels.
+     *    (e.g "rain" had 2 vowels but is only 1 syllable)
+     * 3. If the last letter in the word is 'e' do not count it as a vowel
+     *    (e.g "side" is 1 syllable)
+     * 4. If at the end it turns out that the word contains 0 vowels,
+     *    then consider this word as 1-syllable.
+     */
+    private static void numberOfSyllables () {
+
+    }
+
     //reads the file
     private static String readFile(String fileName) throws IOException {
+        //String path = "/moocs/jetbrains/Readability Score/in2.txt";
         return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 
     //calculates the number of sentences in the file
     private static int numberOfSentences()  {
-        String[] s = str.trim().split("[!?.]+");
+        String[] s = str.replaceAll("\\s+", "").split("[!?.]");
         return s.length;
     }
 
@@ -44,7 +58,7 @@ public class Main {
     //calculates the number characters in the file
     private static int numberOfCharacters()  {
         String words = str.replaceAll("\\s+", "");
-        return words.length();
+        return words.toCharArray().length;
     }
 
     //calculates the score of the text.
@@ -95,3 +109,4 @@ public class Main {
         }
     }
 }
+

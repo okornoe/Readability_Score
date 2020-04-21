@@ -1,22 +1,20 @@
 package readability;
 
-//import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-//import java.util.Scanner;
+
 
 public class Main {
-
-    static int numOfSentence = 0;
-    static int numOfWords = 0;
-    static int numOfCharacters = 0;
-
+    static String str = "";
+    static String path = "/moocs/jetbrains/Readability Score/test1.txt";
     public static void main(String[] args) throws IOException {
+        //str = readFile(args[0]); // read file name from console;
+        str = readFile(path); // read file from a directory.
+        printAll();
+    }
 
-        // use args[0] to read in the file name
-        //for ide testing
-
+    private static void printAll() {
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
@@ -26,28 +24,31 @@ public class Main {
         System.out.println("This text should be understood by " + readableAge((int) Math.ceil(calculateReadableScore())) + " year olds.");
     }
 
-    private static String readFile() throws IOException {
-        String path = "/moocs/jetbrains/Readability Score/in2.txt";
-        return new String(Files.readAllBytes(Paths.get(path)));
+    //reads the file
+    private static String readFile(String fileName) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 
-    private static int numberOfSentences() throws IOException {
-        String[] s = readFile().replaceAll("\\s+","").split("[!?.]");
+    //calculates the number of sentences in the file
+    private static int numberOfSentences()  {
+        String[] s = str.trim().split("[!?.]+");
         return s.length;
     }
 
-    private static int numberOfWords() throws IOException {
-        String[] words = readFile().split("\\s+");
+    //calculates the number of words in the file
+    private static int numberOfWords(){
+        String[] words = str.split("\\s+");
         return words.length;
     }
 
-    private static int numberOfCharacters() throws IOException {
-        String words = readFile().replaceAll("\\s+", "");
-        return words.toCharArray().length;
+    //calculates the number characters in the file
+    private static int numberOfCharacters()  {
+        String words = str.replaceAll("\\s+", "");
+        return words.length();
     }
 
     //calculates the score of the text.
-    private static float calculateReadableScore() throws IOException {
+    private static float calculateReadableScore() {
         final float constVal4_71 = 4.71f;
         final float constVal0_5 = 0.5f;
         final float constVal321_43 = 21.43f;
@@ -94,4 +95,3 @@ public class Main {
         }
     }
 }
-

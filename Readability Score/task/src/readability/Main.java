@@ -18,10 +18,10 @@ public class Main {
 
         printAll();
         //numberOfSyllables();
-        syllables();
+        //syllables();
     }
 
-    private static void printAll() {
+    private static void printAll() throws IOException {
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
@@ -29,6 +29,9 @@ public class Main {
         System.out.format("%.2f", calculateReadableScore());
         System.out.println();
         System.out.println("This text should be understood by " + readableAge((int) Math.ceil(calculateReadableScore())) + " year olds.");
+        System.out.println("Flesch score is: " + fleschKincaidReadTest());
+        System.out.println("Syllables is: " + syllables());
+        System.out.println("Poly Syllables is: " + polySyllables());
     }
 
     //calculates number of syllables in a file
@@ -43,26 +46,49 @@ public class Main {
      *    then consider this word as 1-syllable.
      */
     //count syllables proposed implementation.
-    public static void syllables() throws IOException {
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_word_vowel_count.txt"));
-        String[] words = str.replaceAll("[.!?,]", "").split("\\s+");
+    private static int syllables() throws IOException {
+        String[] words = str.split("\\s+");
         int sum = 0;
         for (String word : words) {
             final Pattern p = Pattern.compile("([ayeiou]+)");
-            final String lowerCase = word.toLowerCase();
+            String lowerCase = word.toLowerCase();
+            if (lowerCase.endsWith(".") || lowerCase.endsWith("!") || lowerCase.endsWith("?") || lowerCase.endsWith(",")) {
+                lowerCase = lowerCase.substring(0,lowerCase.length()-1);
+            }
             final Matcher m = p.matcher(lowerCase);
             int count = 0;
             while (m.find())
                 count++;
             if (lowerCase.endsWith("e"))
-                count = 1;
-            count = count <= 0 ? 1 : count;
+                count--;
+            count = count == 0 ? 1 : count;
             sum = sum + count;
-            fileWriter.write(word + "      " + count);
-            fileWriter.newLine();
         }
-        fileWriter.close();
-        System.out.println(sum);
+        return sum;
+    }
+
+    private static int polySyllables() {
+        String[] words = str.split("\\s+");
+        int pSyllable = 0;
+        for (String word : words) {
+            final Pattern p = Pattern.compile("([ayeiou]+)");
+            String lowerCase = word.toLowerCase();
+            if (lowerCase.endsWith(".") || lowerCase.endsWith("!") || lowerCase.endsWith("?") || lowerCase.endsWith(",")) {
+                lowerCase = lowerCase.substring(0,lowerCase.length()-1);
+            }
+            final Matcher m = p.matcher(lowerCase);
+            int count = 0;
+            while (m.find())
+                count++;
+            if (lowerCase.endsWith("e"))
+                count--;
+
+            //sum = sum + count;
+            if (count >= 2 ) {
+                pSyllable++;
+            }
+        }
+        return pSyllable;
     }
 
     //reads the file
@@ -89,15 +115,15 @@ public class Main {
     }
 
     //calculates the score of the text.
-    private static float calculateReadableScore() {
-        final float constVal4_71 = 4.71f;
-        final float constVal0_5 = 0.5f;
-        final float constVal321_43 = 21.43f;
+    private static double calculateReadableScore() {
+        final double constVal4_71 = 4.71;
+        final double constVal0_5 = 0.5;
+        final double constVal321_43 = 21.43;
         float numCharDivideNumWords;
         float numWordsDivideNumSentence;
         numCharDivideNumWords = (float) numberOfCharacters() / numberOfWords();
         numWordsDivideNumSentence = (float) numberOfWords() / numberOfSentences();
-        return (constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
+        return ((double)constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
     }
 
     //This method determines which age range will be able to read the text.
@@ -134,6 +160,10 @@ public class Main {
             default:
                 return "Unknown";
         }
+    }
+
+    private static double fleschKincaidReadTest() throws IOException {
+      return  0.39 * ((double) numberOfWords()/numberOfSentences()) + 11.8 *  ((double) syllables()/numberOfWords()) - 15.59;
     }
 }
 

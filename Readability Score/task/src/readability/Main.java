@@ -1,15 +1,24 @@
 package readability;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Main {
     static String str = "";
+    static String path = "/moocs/jetbrains/Readability Score/newTest.txt";
     public static void main(String[] args) throws IOException {
-        str = readFile(args[0]);
+        //str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
+        str = readFile(path);  // use this when you want to pass the file path to the program directly.
+
         printAll();
+        //numberOfSyllables();
+        syllables();
     }
 
     private static void printAll() {
@@ -33,13 +42,31 @@ public class Main {
      * 4. If at the end it turns out that the word contains 0 vowels,
      *    then consider this word as 1-syllable.
      */
-    private static void numberOfSyllables () {
-
+    //count syllables proposed implementation.
+    public static void syllables() throws IOException {
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_word_vowel_count.txt"));
+        String[] words = str.replaceAll("[.!?,]", "").split("\\s+");
+        int sum = 0;
+        for (String word : words) {
+            final Pattern p = Pattern.compile("([ayeiou]+)");
+            final String lowerCase = word.toLowerCase();
+            final Matcher m = p.matcher(lowerCase);
+            int count = 0;
+            while (m.find())
+                count++;
+            if (lowerCase.endsWith("e"))
+                count = 1;
+            count = count <= 0 ? 1 : count;
+            sum = sum + count;
+            fileWriter.write(word + "      " + count);
+            fileWriter.newLine();
+        }
+        fileWriter.close();
+        System.out.println(sum);
     }
 
     //reads the file
     private static String readFile(String fileName) throws IOException {
-        //String path = "/moocs/jetbrains/Readability Score/in2.txt";
         return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 

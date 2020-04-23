@@ -1,40 +1,106 @@
 package readability;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class Main {
+
     static String str = "";
     static String path = "/moocs/jetbrains/Readability Score/newTest.txt";
     public static void main(String[] args) throws IOException {
         //str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
         str = readFile(path);  // use this when you want to pass the file path to the program directly.
 
-        printAll();
-        //numberOfSyllables();
-        //syllables();
+        print();
     }
 
-    private static void printAll() throws IOException {
+    private static void print() throws IOException {
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
-        System.out.print("The score is: ");
-        System.out.format("%.2f", calculateReadableScore());
-        System.out.println();
-        System.out.println("This text should be understood by " + readableAge((int) Math.ceil(calculateReadableScore())) + " year olds.");
-        System.out.println("Flesch score is: " + fleschKincaidReadTest());
         System.out.println("Syllables is: " + syllables());
         System.out.println("Poly Syllables is: " + polySyllables());
+        scoreSelection();
     }
 
-    //calculates number of syllables in a file
+    private static void printARI(){
+         /*String readabilityType;
+         double scoreValue;
+         String readableAge;*/
+        String readabilityType = "Automated Readability Index: ";
+        double scoreValue = calculateReadableScore();
+        String readableAge = readableAge((int)calculateReadableScore());
+        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+    }
+
+    private static void printFK() throws IOException {
+         /*String readabilityType;
+         double scoreValue;
+         String readableAge;*/
+        String readabilityType = "Flesch-Kincaid readability tests: ";
+        double scoreValue = fleschKincaidReadTest();
+        String readableAge = readableAge((int)fleschKincaidReadTest());
+        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+    }
+
+    private static void printSMOG() {
+        /*String readabilityType;
+        double scoreValue;
+        String readableAge ;*/
+        String readabilityType = "Simple Measure of Gobbledygook: ";
+        double scoreValue = simpleMeasureOfGobbledygook();
+        String readableAge = readableAge((int)simpleMeasureOfGobbledygook());
+        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+    }
+
+    private static void printCL() {
+        //String readabilityType;
+        //double scoreValue;
+        //String readableAge;
+        String readabilityType = "Coleman-Liau index: ";
+        double scoreValue = colemanLauIndex();
+        String readableAge = readableAge((int)colemanLauIndex());
+        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+    }
+
+    private static void printAll() throws IOException {
+        printARI();
+        printFK();
+        printSMOG();
+        printCL();
+    }
+
+    private static void scoreSelection() throws IOException {
+        System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all):");
+        String scoreType = new Scanner(System.in).next();
+
+        switch (scoreType) {
+            case "ARI":
+                printARI();
+                break;
+            case "FK":
+                printFK();
+                break;
+            case "SMOG":
+                printSMOG();
+                break;
+            case "CL":
+                printCL();
+                break;
+            case "all":
+                printAll();
+                break;
+            default:
+                System.out.println("unknown score type selection");
+                break;
+        }
+
+    }
 
     /**
      * 1. Count the number of vowels in the word.
@@ -46,7 +112,7 @@ public class Main {
      *    then consider this word as 1-syllable.
      */
     //count syllables proposed implementation.
-    private static int syllables() throws IOException {
+    private static int syllables(){
         String[] words = str.split("\\s+");
         int sum = 0;
         for (String word : words) {
@@ -67,9 +133,9 @@ public class Main {
         return sum;
     }
 
-    private static int polySyllables() throws IOException {
+    private static int polySyllables() {
         int pSyllable = 0;
-        BufferedWriter writer = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_ploySyllable.txt"));
+        //BufferedWriter writer = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_ploySyllable.txt"));
         String[] words = str.split("\\s+");
 
         for (String word : words) {
@@ -90,6 +156,17 @@ public class Main {
             }
         }
         return pSyllable;
+    }
+
+    private static double simpleMeasureOfGobbledygook() {
+
+        return 1.043 * Math.sqrt(polySyllables() * ((double)30 / numberOfSentences())) + 3.1291;
+    }
+
+    private static double colemanLauIndex () {
+        double l = ((double) numberOfCharacters() / (double) numberOfWords()) * 100;
+        double s = (double) numberOfSentences() / (double) numberOfWords() * 100;
+        return 0.0588 * l - 0.296 * s - 15.8;
     }
 
     //reads the file
@@ -127,6 +204,7 @@ public class Main {
         return ((double)constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
     }
 
+    //work to be done here to return maximum age.
     //This method determines which age range will be able to read the text.
     private static String readableAge(int score) {
         switch (score) {

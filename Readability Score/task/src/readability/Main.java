@@ -67,9 +67,11 @@ public class Main {
         return sum;
     }
 
-    private static int polySyllables() {
-        String[] words = str.split("\\s+");
+    private static int polySyllables() throws IOException {
         int pSyllable = 0;
+        BufferedWriter writer = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_ploySyllable.txt"));
+        String[] words = str.split("\\s+");
+
         for (String word : words) {
             final Pattern p = Pattern.compile("([ayeiou]+)");
             String lowerCase = word.toLowerCase();
@@ -83,9 +85,8 @@ public class Main {
             if (lowerCase.endsWith("e"))
                 count--;
 
-            //sum = sum + count;
-            if (count >= 2 ) {
-                pSyllable++;
+            if (count > 2 ) {
+                pSyllable = pSyllable + 1;
             }
         }
         return pSyllable;

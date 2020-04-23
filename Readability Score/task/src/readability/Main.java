@@ -7,6 +7,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * ToDo's
+ * work on the age readable.
+ * work on the average age able to understand the text.
+ * refactor the syllable and the poly syllable method to avoid repitition.
+ */
 
 public class Main {
 
@@ -19,24 +25,24 @@ public class Main {
         print();
     }
 
-    private static void print() throws IOException {
+    private static void print() {
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
-        System.out.println("Syllables is: " + syllables());
-        System.out.println("Poly Syllables is: " + polySyllables());
+        System.out.println("Syllables: " + syllables());
+        System.out.println("Polysyllables: " + polySyllables());
         scoreSelection();
 
     }
 
     private static void printARI(){
         String readabilityType = "Automated Readability Index: ";
-        double scoreValue = calculateReadableScore();
-        String readableAge = readableAge((int)calculateReadableScore());
+        double scoreValue = authomaticReadabilityIndex();
+        String readableAge = readableAge((int) authomaticReadabilityIndex());
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
-    private static void printFK() throws IOException {
+    private static void printFK() {
         String readabilityType = "Flesch-Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
         String readableAge = readableAge((int)fleschKincaidReadTest());
@@ -57,14 +63,14 @@ public class Main {
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
-    private static void printAll() throws IOException {
+    private static void printAll() {
         printARI();
         printFK();
         printSMOG();
         printCL();
     }
 
-    private static void scoreSelection() throws IOException {
+    private static void scoreSelection() {
         System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all):");
         String scoreType = new Scanner(System.in).next();
 
@@ -90,16 +96,7 @@ public class Main {
         }
     }
 
-    /**
-     * 1. Count the number of vowels in the word.
-     * 2. Do not count double-vowels.
-     *    (e.g "rain" had 2 vowels but is only 1 syllable)
-     * 3. If the last letter in the word is 'e' do not count it as a vowel
-     *    (e.g "side" is 1 syllable)
-     * 4. If at the end it turns out that the word contains 0 vowels,
-     *    then consider this word as 1-syllable.
-     */
-    //count syllables proposed implementation.
+    //calculates the number syllables in a word.
     private static int syllables(){
         String[] words = str.split("\\s+");
         int sum = 0;
@@ -121,6 +118,7 @@ public class Main {
         return sum;
     }
 
+    //calculates the number of syllables in the word greater than two
     private static int polySyllables() {
         int pSyllable = 0;
         //BufferedWriter writer = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_ploySyllable.txt"));
@@ -146,11 +144,13 @@ public class Main {
         return pSyllable;
     }
 
+    //calculates the Simple Measure Of Gobbledygook.
     private static double simpleMeasureOfGobbledygook() {
 
         return Math.round((1.043 * Math.sqrt(polySyllables() * ((double)30 / numberOfSentences())) + 3.1291) * 100.0 )/100.0;
     }
 
+    //calculates the coleman-Lau Index
     private static double colemanLauIndex () {
         double l = ((double) numberOfCharacters() / (double) numberOfWords()) * 100;
         double s = (double) numberOfSentences() / (double) numberOfWords() * 100;
@@ -181,7 +181,7 @@ public class Main {
     }
 
     //calculates the score of the text.
-    private static double calculateReadableScore() {
+    private static double authomaticReadabilityIndex() {
         final double constVal4_71 = 4.71;
         final double constVal0_5 = 0.5;
         final double constVal321_43 = 21.43;
@@ -197,40 +197,41 @@ public class Main {
     private static String readableAge(int score) {
         switch (score) {
             case 1:
-                return "6";
+                return "5-6";
             case 2:
-                return "7";
+                return "6-7";
             case 3:
-                return "9";
+                return "7-9";
             case 4:
-                return "10";
+                return "9-10";
             case 5:
-                return "11";
+                return "10-11";
             case 6:
-                return "12";
+                return "11-12";
             case 7:
-                return "13";
+                return "12-13";
             case 8:
-                return "14";
+                return "13-14";
             case 9:
-                return "15";
+                return "14-15";
             case 10:
-                return "16";
+                return "15-16";
             case 11:
-                return "17";
+                return "16-17";
             case 12:
-                return "18";
+                return "17-18";
             case 13:
-                return "24";
+                return "18-24";
             case 14:
-                return "25";
+                return "24+";
             default:
                 return "Unknown";
         }
     }
 
-    private static double fleschKincaidReadTest() throws IOException {
-      return  Math.round((0.39 * ((double) numberOfWords()/numberOfSentences()) + 11.8 *  ((double) syllables()/numberOfWords()) - 15.59) *100.0)/100.0;
+    //calculates the Flesch Kincaid score.
+    private static double fleschKincaidReadTest(){
+        return  Math.round((0.39 * ((double) numberOfWords()/numberOfSentences()) + 11.8 *  ((double) syllables()/numberOfWords()) - 15.59) *100.0)/100.0;
     }
 }
 

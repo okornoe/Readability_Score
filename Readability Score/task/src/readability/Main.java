@@ -26,12 +26,10 @@ public class Main {
         System.out.println("Syllables is: " + syllables());
         System.out.println("Poly Syllables is: " + polySyllables());
         scoreSelection();
+
     }
 
     private static void printARI(){
-         /*String readabilityType;
-         double scoreValue;
-         String readableAge;*/
         String readabilityType = "Automated Readability Index: ";
         double scoreValue = calculateReadableScore();
         String readableAge = readableAge((int)calculateReadableScore());
@@ -39,9 +37,6 @@ public class Main {
     }
 
     private static void printFK() throws IOException {
-         /*String readabilityType;
-         double scoreValue;
-         String readableAge;*/
         String readabilityType = "Flesch-Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
         String readableAge = readableAge((int)fleschKincaidReadTest());
@@ -49,9 +44,6 @@ public class Main {
     }
 
     private static void printSMOG() {
-        /*String readabilityType;
-        double scoreValue;
-        String readableAge ;*/
         String readabilityType = "Simple Measure of Gobbledygook: ";
         double scoreValue = simpleMeasureOfGobbledygook();
         String readableAge = readableAge((int)simpleMeasureOfGobbledygook());
@@ -59,9 +51,6 @@ public class Main {
     }
 
     private static void printCL() {
-        //String readabilityType;
-        //double scoreValue;
-        //String readableAge;
         String readabilityType = "Coleman-Liau index: ";
         double scoreValue = colemanLauIndex();
         String readableAge = readableAge((int)colemanLauIndex());
@@ -99,7 +88,6 @@ public class Main {
                 System.out.println("unknown score type selection");
                 break;
         }
-
     }
 
     /**
@@ -160,13 +148,13 @@ public class Main {
 
     private static double simpleMeasureOfGobbledygook() {
 
-        return 1.043 * Math.sqrt(polySyllables() * ((double)30 / numberOfSentences())) + 3.1291;
+        return Math.round((1.043 * Math.sqrt(polySyllables() * ((double)30 / numberOfSentences())) + 3.1291) * 100.0 )/100.0;
     }
 
     private static double colemanLauIndex () {
         double l = ((double) numberOfCharacters() / (double) numberOfWords()) * 100;
         double s = (double) numberOfSentences() / (double) numberOfWords() * 100;
-        return 0.0588 * l - 0.296 * s - 15.8;
+        return Math.round((0.0588 * l - 0.296 * s - 15.8) * 100.0) / 100.0;
     }
 
     //reads the file
@@ -201,7 +189,7 @@ public class Main {
         float numWordsDivideNumSentence;
         numCharDivideNumWords = (float) numberOfCharacters() / numberOfWords();
         numWordsDivideNumSentence = (float) numberOfWords() / numberOfSentences();
-        return ((double)constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43);
+        return  Math.round((((constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43)) * 100.0))/100.0;
     }
 
     //work to be done here to return maximum age.
@@ -209,40 +197,40 @@ public class Main {
     private static String readableAge(int score) {
         switch (score) {
             case 1:
-                return "5-6";
+                return "6";
             case 2:
-                return "6-7";
+                return "7";
             case 3:
-                return "7-9";
+                return "9";
             case 4:
-                return "9-10";
+                return "10";
             case 5:
-                return "10-11";
+                return "11";
             case 6:
-                return "11-12";
+                return "12";
             case 7:
-                return "12-13";
+                return "13";
             case 8:
-                return "13-14";
+                return "14";
             case 9:
-                return "14-15";
+                return "15";
             case 10:
-                return "15-16";
+                return "16";
             case 11:
-                return "16-17";
+                return "17";
             case 12:
-                return "17-18";
+                return "18";
             case 13:
-                return "18-24";
+                return "24";
             case 14:
-                return "24+";
+                return "25";
             default:
                 return "Unknown";
         }
     }
 
     private static double fleschKincaidReadTest() throws IOException {
-      return  0.39 * ((double) numberOfWords()/numberOfSentences()) + 11.8 *  ((double) syllables()/numberOfWords()) - 15.59;
+      return  Math.round((0.39 * ((double) numberOfWords()/numberOfSentences()) + 11.8 *  ((double) syllables()/numberOfWords()) - 15.59) *100.0)/100.0;
     }
 }
 

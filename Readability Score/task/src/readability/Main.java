@@ -11,7 +11,18 @@ import java.util.regex.Pattern;
  * ToDo's
  * work on the age readable.
  * work on the average age able to understand the text.
- * refactor the syllable and the poly syllable method to avoid repitition.
+ */
+
+/**
+ *
+ * double floor = Math.floor(3.78); // floor is 3.0
+ * double ceil = Math.ceil(4.15); // ceil is 5.0
+ *
+ * Math.floor(...) returns the largest double value that is less than or
+ * equal to its argument and is equal to an integer;
+ *
+ * Math.ceil(...) returns the smallest double value that is greater than or
+ * equal to its argument and is equal to an integer.
  */
 
 public class Main {
@@ -32,34 +43,33 @@ public class Main {
         System.out.println("Syllables: " + syllables());
         System.out.println("Polysyllables: " + polySyllables());
         scoreSelection();
-
     }
 
     private static void printARI(){
         String readabilityType = "Automated Readability Index: ";
         double scoreValue = authomaticReadabilityIndex();
-        String readableAge = readableAge((int) authomaticReadabilityIndex());
+        String readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
     private static void printFK() {
         String readabilityType = "Flesch-Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
-        String readableAge = readableAge((int)fleschKincaidReadTest());
+        String readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
     private static void printSMOG() {
         String readabilityType = "Simple Measure of Gobbledygook: ";
         double scoreValue = simpleMeasureOfGobbledygook();
-        String readableAge = readableAge((int)simpleMeasureOfGobbledygook());
+        String readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
     private static void printCL() {
         String readabilityType = "Coleman-Liau index: ";
         double scoreValue = colemanLauIndex();
-        String readableAge = readableAge((int)colemanLauIndex());
+        String readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
@@ -121,6 +131,7 @@ public class Main {
         return pSyllable;
     }
 
+    //count vowels in the word.
     private static int countVowelsInWord(String word) {
         final Pattern p = Pattern.compile("([ayeiou]+)");
         String lowerCase = word.toLowerCase();
@@ -185,8 +196,8 @@ public class Main {
 
     //work to be done here to return maximum age.
     //This method determines which age range will be able to read the text.
-    private static String readableAge(int score) {
-        switch (score) {
+    private static String readableAge(long score) {
+        switch ((int)score) {
             case 1:
                 return "5-6";
             case 2:

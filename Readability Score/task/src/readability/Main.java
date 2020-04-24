@@ -8,12 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ToDo's
- * work on the age readable.
- * work on the average age able to understand the text.
- */
-
-/**
  *
  * double floor = Math.floor(3.78); // floor is 3.0
  * double ceil = Math.ceil(4.15); // ceil is 5.0
@@ -192,7 +186,7 @@ public class Main {
     //calculates the number characters in the file
     private static int numberOfCharacters()  {
         String words = str.replaceAll("\\s+", "");
-        return words.toCharArray().length;
+        return words.length();
     }
 
     //calculates the score of the text.
@@ -200,10 +194,10 @@ public class Main {
         final double constVal4_71 = 4.71;
         final double constVal0_5 = 0.5;
         final double constVal321_43 = 21.43;
-        float numCharDivideNumWords;
-        float numWordsDivideNumSentence;
-        numCharDivideNumWords = (float) numberOfCharacters() / numberOfWords();
-        numWordsDivideNumSentence = (float) numberOfWords() / numberOfSentences();
+        double numCharDivideNumWords;
+        double numWordsDivideNumSentence;
+        numCharDivideNumWords = (double) numberOfCharacters() / numberOfWords();
+        numWordsDivideNumSentence = (double) numberOfWords() / numberOfSentences();
         return  Math.round((((constVal4_71 * numCharDivideNumWords) + ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43)) * 100.0))/100.0;
     }
 

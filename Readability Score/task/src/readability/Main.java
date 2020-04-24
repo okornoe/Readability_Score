@@ -48,28 +48,28 @@ public class Main {
     private static void printARI(){
         String readabilityType = "Automated Readability Index: ";
         double scoreValue = authomaticReadabilityIndex();
-        String readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
     private static void printFK() {
         String readabilityType = "Flesch-Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
-        String readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
     private static void printSMOG() {
         String readabilityType = "Simple Measure of Gobbledygook: ";
         double scoreValue = simpleMeasureOfGobbledygook();
-        String readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
     private static void printCL() {
         String readabilityType = "Coleman-Liau index: ";
         double scoreValue = colemanLauIndex();
-        String readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
@@ -196,38 +196,38 @@ public class Main {
 
     //work to be done here to return maximum age.
     //This method determines which age range will be able to read the text.
-    private static String readableAge(long score) {
+    private static int readableAge(long score) {
         switch ((int)score) {
             case 1:
-                return "5-6";
+                return 6;
             case 2:
-                return "6-7";
+                return 7;
             case 3:
-                return "7-9";
+                return 9;
             case 4:
-                return "9-10";
+                return 10;
             case 5:
-                return "10-11";
+                return 11;
             case 6:
-                return "11-12";
+                return 12;
             case 7:
-                return "12-13";
+                return 13;
             case 8:
-                return "13-14";
+                return 14;
             case 9:
-                return "14-15";
+                return 15;
             case 10:
-                return "15-16";
+                return 16;
             case 11:
-                return "16-17";
+                return 17;
             case 12:
-                return "17-18";
+                return 18;
             case 13:
-                return "18-24";
+                return 24;
             case 14:
-                return "24+";
+                return 25;
             default:
-                return "Unknown";
+                return 0;
         }
     }
 

@@ -101,19 +101,9 @@ public class Main {
         String[] words = str.split("\\s+");
         int sum = 0;
         for (String word : words) {
-            final Pattern p = Pattern.compile("([ayeiou]+)");
-            String lowerCase = word.toLowerCase();
-            if (lowerCase.endsWith(".") || lowerCase.endsWith("!") || lowerCase.endsWith("?") || lowerCase.endsWith(",")) {
-                lowerCase = lowerCase.substring(0,lowerCase.length()-1);
-            }
-            final Matcher m = p.matcher(lowerCase);
-            int count = 0;
-            while (m.find())
-                count++;
-            if (lowerCase.endsWith("e"))
-                count--;
-            count = count == 0 ? 1 : count;
-            sum = sum + count;
+            int numOfVowelsInWord = countVowelsInWord(word);
+            numOfVowelsInWord = (numOfVowelsInWord == 0) ? 1 : numOfVowelsInWord;
+            sum = sum + numOfVowelsInWord;
         }
         return sum;
     }
@@ -121,32 +111,33 @@ public class Main {
     //calculates the number of syllables in the word greater than two
     private static int polySyllables() {
         int pSyllable = 0;
-        //BufferedWriter writer = new BufferedWriter(new FileWriter("/moocs/jetbrains/Readability Score/debug_ploySyllable.txt"));
         String[] words = str.split("\\s+");
-
         for (String word : words) {
-            final Pattern p = Pattern.compile("([ayeiou]+)");
-            String lowerCase = word.toLowerCase();
-            if (lowerCase.endsWith(".") || lowerCase.endsWith("!") || lowerCase.endsWith("?") || lowerCase.endsWith(",")) {
-                lowerCase = lowerCase.substring(0,lowerCase.length()-1);
-            }
-            final Matcher m = p.matcher(lowerCase);
-            int count = 0;
-            while (m.find())
-                count++;
-            if (lowerCase.endsWith("e"))
-                count--;
-
-            if (count > 2 ) {
+            int numOfVowelsInWord = countVowelsInWord(word);
+            if (numOfVowelsInWord > 2 ) {
                 pSyllable = pSyllable + 1;
             }
         }
         return pSyllable;
     }
 
+    private static int countVowelsInWord(String word) {
+        final Pattern p = Pattern.compile("([ayeiou]+)");
+        String lowerCase = word.toLowerCase();
+        if (lowerCase.endsWith(".") || lowerCase.endsWith("!") || lowerCase.endsWith("?") || lowerCase.endsWith(",")) {
+            lowerCase = lowerCase.substring(0,lowerCase.length()-1);
+        }
+        final Matcher m = p.matcher(lowerCase);
+        int count = 0;
+        while (m.find())
+            count++;
+        if (lowerCase.endsWith("e"))
+            count--;
+        return count;
+    }
+
     //calculates the Simple Measure Of Gobbledygook.
     private static double simpleMeasureOfGobbledygook() {
-
         return Math.round((1.043 * Math.sqrt(polySyllables() * ((double)30 / numberOfSentences())) + 3.1291) * 100.0 )/100.0;
     }
 

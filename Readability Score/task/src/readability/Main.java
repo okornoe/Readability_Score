@@ -34,6 +34,7 @@ public class Main {
         str = readFile(path);  // use this when you want to pass the file path to the program directly.
 
         print();
+
     }
 
     private static void print() {
@@ -43,6 +44,7 @@ public class Main {
         System.out.println("Syllables: " + syllables());
         System.out.println("Polysyllables: " + polySyllables());
         scoreSelection();
+        averageReadableAge();
     }
 
     private static void printARI(){
@@ -146,6 +148,17 @@ public class Main {
             count--;
         return count;
     }
+
+    //calculate the average readable age
+    private static void averageReadableAge() {
+        double averageAge = (readableAge((int)Math.round(authomaticReadabilityIndex())) +
+                 readableAge((int)Math.round(fleschKincaidReadTest())) +
+                 readableAge((int)Math.round(simpleMeasureOfGobbledygook())) +
+                 readableAge((int)Math.round(colemanLauIndex())))/4.0;
+        System.out.println("This text should be understood in average by " + averageAge +
+                " year olds.");
+    }
+
 
     //calculates the Simple Measure Of Gobbledygook.
     private static double simpleMeasureOfGobbledygook() {

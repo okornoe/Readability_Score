@@ -47,7 +47,7 @@ public class Main {
 
     // responsible for printing flesch-kincaid
     private static void printFK() {
-        String readabilityType = "Flesch-Kincaid readability tests: ";
+        String readabilityType = "Flesch–Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
         int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
@@ -65,7 +65,7 @@ public class Main {
 
     //responsible for printing the coleman-liau index
     private static void printCL() {
-        String readabilityType = "Coleman-Liau index: ";
+        String readabilityType = "Coleman–Liau index: ";
         double scoreValue = colemanLauIndex();
         int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
@@ -208,7 +208,6 @@ public class Main {
         return Math.round((0.0588 * l - 0.296 * s - 15.8) * 100.0) / 100.0;
     }
 
-    //work to be done here to return maximum age.
     //This method determines which age range will be able to read the text.
     private static int readableAge(long score) {
         switch ((int) score) {

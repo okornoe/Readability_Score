@@ -13,8 +13,8 @@ public class Main {
     static String path = "/moocs/jetbrains/Readability Score/newTest.txt";
 
     public static void main(String[] args) throws IOException {
-        //str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
-        str = readFile(path);  // use this when you want to pass the file path to the program directly.
+        str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
+        //str = readFile(path);  // use this when you want to pass the file path to the program directly.
 
         print();
     }
@@ -24,17 +24,19 @@ public class Main {
         return new String(Files.readAllBytes(Paths.get(fileName)));
     }
 
+    // This method is responsible for printing final result to the screen
     private static void print() {
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
         System.out.println("Syllables: " + syllables());
         System.out.println("Polysyllables: " + polySyllables());
-        scoreSelection();
+        readabilityScoreSelection();
         System.out.println();
         averageReadableAge();
     }
 
+    //prints the automatic readability index
     private static void printARI() {
         String readabilityType = "Automated Readability Index: ";
         double scoreValue = authomaticReadabilityIndex();
@@ -43,6 +45,7 @@ public class Main {
         System.out.println();
     }
 
+    // responsible for printing flesch-kincaid
     private static void printFK() {
         String readabilityType = "Flesch-Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
@@ -51,6 +54,7 @@ public class Main {
         System.out.println();
     }
 
+    //responsible for printing the simple-measure og gobbledygook.
     private static void printSMOG() {
         String readabilityType = "Simple Measure of Gobbledygook: ";
         double scoreValue = simpleMeasureOfGobbledygook();
@@ -59,14 +63,15 @@ public class Main {
         System.out.println();
     }
 
+    //responsible for printing the coleman-liau index
     private static void printCL() {
         String readabilityType = "Coleman-Liau index: ";
         double scoreValue = colemanLauIndex();
         int readableAge = readableAge(Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
-        //System.out.println();
     }
 
+    // responsible for printing all index score when all is selected.
     private static void printAll() {
         printARI();
         printFK();
@@ -74,7 +79,8 @@ public class Main {
         printCL();
     }
 
-    private static void scoreSelection() {
+    //determines which readability is printed based on user selection.
+    private static void readabilityScoreSelection() {
         System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all):");
         String scoreType = new Scanner(System.in).next();
         System.out.println();

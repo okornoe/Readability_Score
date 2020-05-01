@@ -9,6 +9,11 @@ import java.util.regex.Pattern;
 
 public class Main {
 
+    private static final String ARI = "ARI";
+    private static final String FK = "FK";
+    private static final String SMOG = "SMOG";
+    private static final String CL = "CL";
+    private static final String ALL = "all";
     static String str = "";
     static String path = "/jetBrains/Readability_Score/newTest.txt";
 
@@ -86,19 +91,19 @@ public class Main {
         System.out.println();
 
         switch (scoreType) {
-            case "ARI":
+            case ARI:
                 printARI();
                 break;
-            case "FK":
+            case FK:
                 printFK();
                 break;
-            case "SMOG":
+            case SMOG:
                 printSMOG();
                 break;
-            case "CL":
+            case CL:
                 printCL();
                 break;
-            case "all":
+            case ALL:
                 printAll();
                 break;
             default:

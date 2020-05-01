@@ -14,7 +14,7 @@ public class Main {
     private static final String SMOG = "SMOG";
     private static final String CL = "CL";
     private static final String ALL = "all";
-    static String str = "";
+    private static String str;
     static String path = "/jetBrains/Readability_Score/newTest.txt";
 
     public static void main(String[] args) throws IOException {
@@ -100,16 +100,23 @@ public class Main {
         }
     }
 
+    private static String[] sentence() {
+        return str.replaceAll("\\s+", "").split("[!?.]");
+    }
+
+    private static String[] words() {
+        return str.split("\\s+");
+    }
+
     //calculates the number of sentences in the file
     private static int numberOfSentences() {
-        String[] s = str.replaceAll("\\s+", "").split("[!?.]");
-        return s.length;
+        return sentence().length;
     }
 
     //calculates the number of words in the file
     private static int numberOfWords() {
-        String[] words = str.split("\\s+");
-        return words.length;
+        //String[] words = str.split("\\s+");
+        return words().length;
     }
 
     //calculates the number characters in the file

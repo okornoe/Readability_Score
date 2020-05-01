@@ -45,7 +45,7 @@ public class Main {
     private static void printARI() {
         String readabilityType = "Automated Readability Index: ";
         double scoreValue = authomaticReadabilityIndex();
-        int readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge((int)Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
         System.out.println();
     }
@@ -54,7 +54,7 @@ public class Main {
     private static void printFK() {
         String readabilityType = "Flesch–Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
-        int readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge((int)Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
         System.out.println();
     }
@@ -63,7 +63,7 @@ public class Main {
     private static void printSMOG() {
         String readabilityType = "Simple Measure of Gobbledygook: ";
         double scoreValue = simpleMeasureOfGobbledygook();
-        int readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge((int)Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
         System.out.println();
     }
@@ -72,7 +72,7 @@ public class Main {
     private static void printCL() {
         String readabilityType = "Coleman–Liau index: ";
         double scoreValue = colemanLauIndex();
-        int readableAge = readableAge(Math.round(scoreValue));
+        int readableAge = readableAge((int)Math.round(scoreValue));
         System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
     }
 
@@ -208,39 +208,9 @@ public class Main {
     }
 
     //This method determines which age range will be able to read the text.
-    private static int readableAge(long score) {
-        switch ((int) score) {
-            case 1:
-                return 6;
-            case 2:
-                return 7;
-            case 3:
-                return 9;
-            case 4:
-                return 10;
-            case 5:
-                return 11;
-            case 6:
-                return 12;
-            case 7:
-                return 13;
-            case 8:
-                return 14;
-            case 9:
-                return 15;
-            case 10:
-                return 16;
-            case 11:
-                return 17;
-            case 12:
-                return 18;
-            case 13:
-                return 24;
-            case 14:
-                return 25;
-            default:
-                return 0;
-        }
+    private static int readableAge(int score) {
+        int [] age = {6,7,9,10,11,12,13,14,15,16,17,18,24,25};
+        return age[score -1];
     }
 }
 

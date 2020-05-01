@@ -41,12 +41,16 @@ public class Main {
         averageReadableAge();
     }
 
+    private static void printFormat(String readabilityType, double scoreValue, int readableAge) {
+        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+    }
+
     //prints the automatic readability index
     private static void printARI() {
         String readabilityType = "Automated Readability Index: ";
         double scoreValue = authomaticReadabilityIndex();
         int readableAge = readableAge((int)Math.round(scoreValue));
-        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+        printFormat(readabilityType,scoreValue,readableAge);
         System.out.println();
     }
 
@@ -55,7 +59,7 @@ public class Main {
         String readabilityType = "Flesch–Kincaid readability tests: ";
         double scoreValue = fleschKincaidReadTest();
         int readableAge = readableAge((int)Math.round(scoreValue));
-        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+        printFormat(readabilityType,scoreValue,readableAge);
         System.out.println();
     }
 
@@ -64,7 +68,7 @@ public class Main {
         String readabilityType = "Simple Measure of Gobbledygook: ";
         double scoreValue = simpleMeasureOfGobbledygook();
         int readableAge = readableAge((int)Math.round(scoreValue));
-        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+        printFormat(readabilityType,scoreValue,readableAge);
         System.out.println();
     }
 
@@ -73,7 +77,7 @@ public class Main {
         String readabilityType = "Coleman–Liau index: ";
         double scoreValue = colemanLauIndex();
         int readableAge = readableAge((int)Math.round(scoreValue));
-        System.out.println(readabilityType + scoreValue + " (about " + readableAge + " year olds).");
+        printFormat(readabilityType,scoreValue,readableAge);
     }
 
     // responsible for printing all index score when all is selected.

@@ -187,8 +187,8 @@ public class Main {
         double numWordsDivideNumSentence;
         numCharDivideNumWords = (double) numberOfCharacters() / numberOfWords();
         numWordsDivideNumSentence = (double) numberOfWords() / numberOfSentences();
-        return Math.round((((4.71 * numCharDivideNumWords) +
-                ((0.5 * numWordsDivideNumSentence) - 21.43)) * 100.0)) / 100.0;
+        return Math.round((4.71 * numCharDivideNumWords +
+                (0.5 * numWordsDivideNumSentence - 21.43)) * 100.0) / 100.0;
     }
 
     //calculates the Flesch Kincaid score.

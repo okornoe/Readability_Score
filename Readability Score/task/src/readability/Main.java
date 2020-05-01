@@ -15,18 +15,19 @@ public class Main {
     private static final String CL = "CL";
     private static final String ALL = "all";
     private static String str;
-    private static final String path = "/jetBrains/Readability_Score/newTest.txt";
 
+    //If you want to pass the filename directly uncomment line 22 and comment line 21.
     public static void main(String[] args) throws IOException {
-        //str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
-        str = readFile(path);  // use this when you want to pass the file path to the program directly.
+        //final String filename = args[0];
+         String filename = "/jetBrains/Readability_Score/newTest.txt";
+        str = readFile(filename);
 
         print();
     }
 
     //reads the file
-    private static String readFile(String fileName) throws IOException {
-        return new String(Files.readAllBytes(Paths.get(fileName)));
+    private static String readFile(String filename) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(filename)));
     }
 
     // This method is responsible for printing final result to the screen

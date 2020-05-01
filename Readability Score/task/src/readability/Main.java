@@ -121,8 +121,14 @@ public class Main {
 
     //calculates the number characters in the file
     private static int numberOfCharacters() {
-        String words = str.replaceAll("\\s+", "");
-        return words.length();
+        //String words = str.replaceAll("\\s+", "");
+        //return words.length();
+        String[] words = words();
+        int len = 0;
+        for (String word : words) {
+            len += word.length();
+        }
+        return len;
     }
 
     //calculates the number syllables in a word.

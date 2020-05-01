@@ -91,24 +91,12 @@ public class Main {
         System.out.println();
 
         switch (scoreType) {
-            case ARI:
-                printARI();
-                break;
-            case FK:
-                printFK();
-                break;
-            case SMOG:
-                printSMOG();
-                break;
-            case CL:
-                printCL();
-                break;
-            case ALL:
-                printAll();
-                break;
-            default:
-                System.out.println("unknown score type selection");
-                break;
+            case ARI -> printARI();
+            case FK -> printFK();
+            case SMOG -> printSMOG();
+            case CL -> printCL();
+            case ALL -> printAll();
+            default -> System.out.println("unknown score type selection");
         }
     }
 

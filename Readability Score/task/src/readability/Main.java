@@ -115,14 +115,11 @@ public class Main {
 
     //calculates the number of words in the file
     private static int numberOfWords() {
-        //String[] words = str.split("\\s+");
         return words().length;
     }
 
     //calculates the number characters in the file
     private static int numberOfCharacters() {
-        //String words = str.replaceAll("\\s+", "");
-        //return words.length();
         String[] words = words();
         int len = 0;
         for (String word : words) {
@@ -186,15 +183,12 @@ public class Main {
 
     //calculates the score of the text.
     private static double authomaticReadabilityIndex() {
-        final double constVal4_71 = 4.71;
-        final double constVal0_5 = 0.5;
-        final double constVal321_43 = 21.43;
         double numCharDivideNumWords;
         double numWordsDivideNumSentence;
         numCharDivideNumWords = (double) numberOfCharacters() / numberOfWords();
         numWordsDivideNumSentence = (double) numberOfWords() / numberOfSentences();
-        return Math.round((((constVal4_71 * numCharDivideNumWords) +
-                ((constVal0_5 * numWordsDivideNumSentence) - constVal321_43)) * 100.0)) / 100.0;
+        return Math.round((((4.71 * numCharDivideNumWords) +
+                ((0.5 * numWordsDivideNumSentence) - 21.43)) * 100.0)) / 100.0;
     }
 
     //calculates the Flesch Kincaid score.

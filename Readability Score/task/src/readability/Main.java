@@ -120,9 +120,8 @@ public class Main {
 
     //calculates the number characters in the file
     private static int numberOfCharacters() {
-        String[] words = words();
         int len = 0;
-        for (String word : words) {
+        for (String word : words()) {
             len += word.length();
         }
         return len;
@@ -130,9 +129,8 @@ public class Main {
 
     //calculates the number syllables in a word.
     private static int syllables() {
-        String[] words = str.split("\\s+");
         int sum = 0;
-        for (String word : words) {
+        for (String word : words()) {
             int numOfVowelsInWord = countVowelsInWord(word);
             numOfVowelsInWord = (numOfVowelsInWord == 0) ? 1 : numOfVowelsInWord;
             sum = sum + numOfVowelsInWord;
@@ -143,8 +141,7 @@ public class Main {
     //calculates the number of syllables in the word greater than two
     private static int polySyllables() {
         int pSyllable = 0;
-        String[] words = str.split("\\s+");
-        for (String word : words) {
+        for (String word : words()) {
             int numOfVowelsInWord = countVowelsInWord(word);
             if (numOfVowelsInWord > 2) {
                 pSyllable = pSyllable + 1;

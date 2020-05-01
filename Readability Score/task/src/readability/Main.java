@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
 public class Main {
 
     static String str = "";
-    static String path = "/moocs/jetbrains/Readability Score/newTest.txt";
+    static String path = "/jetBrains/Readability_Score/newTest.txt";
 
     public static void main(String[] args) throws IOException {
-        str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
-        //str = readFile(path);  // use this when you want to pass the file path to the program directly.
+        //str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
+        str = readFile(path);  // use this when you want to pass the file path to the program directly.
 
         print();
     }
@@ -159,10 +159,12 @@ public class Main {
         }
         final Matcher m = p.matcher(lowerCase);
         int count = 0;
-        while (m.find())
+        while (m.find()) {
             count++;
-        if (lowerCase.endsWith("e"))
+        }
+        if (lowerCase.endsWith("e")){
             count--;
+        }
         return count;
     }
 

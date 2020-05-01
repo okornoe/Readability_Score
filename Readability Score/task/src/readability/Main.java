@@ -15,7 +15,7 @@ public class Main {
     private static final String CL = "CL";
     private static final String ALL = "all";
     private static String str;
-    static String path = "/jetBrains/Readability_Score/newTest.txt";
+    private static final String path = "/jetBrains/Readability_Score/newTest.txt";
 
     public static void main(String[] args) throws IOException {
         //str = readFile(args[0]); // uncomment this line when you want pass the file name from the console
@@ -104,10 +104,12 @@ public class Main {
         }
     }
 
+    //splits the file into sentences
     private static String[] sentence() {
         return str.replaceAll("\\s+", "").split("[!?.]");
     }
 
+    //splits the file into words
     private static String[] words() {
         return str.split("\\s+");
     }
